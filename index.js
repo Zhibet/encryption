@@ -1,20 +1,30 @@
-async function encryptMessage() {
-    const plaintext = document.getElementById('plaintext').value;
-    const encodedText = new TextEncoder().encode(plaintext);
-    console.log(encodedText)
-    const key = await window.crypto.subtle.generateKey(
-        {name: 'AES-GCM', length: 256},
-        true,
-        ['encrypt', 'decrypt']
-    );
-    const iv = window.crypto.getRandomValues(new Uint8Array(12));
-    const encrypted = await window.crypto.subtle.encrypt(
-        {name: 'AES-GCM', iv: iv},
-        key,
-        encodedText
-    );
-    const encryptedArray = new Uint8Array(encrypted);
-    const encryptedBase64 = btoa(String.fromCharCode(...encryptedArray));
-    console.log(encryptedBase64)
-    document.getElementsByClassName('encrypt')[0].textContent = encryptedBase64
-}
+const message = 'citlali';
+const correct_password = 'namasta';
+const password_input = document.getElementById('password');
+const inputValue = password_input.value;
+const message_display = document.getElementsByClassName('message')[0];
+const help = document.getElementById("infoButton");
+
+help.addEventListener('click', () => {
+    const help_messages = document.getElementsByClassName('help');
+    for (let i = 0; i < help_messages.length; i++) {
+        help_messages[i].innerHTML = '7 letter word';
+    }
+    setTimeout(()=>{
+        for (let i = 0; i < help_messages.length; i++) {
+            help_messages[i].innerHTML = '';
+        }
+    },4000)
+});
+
+
+password_input.addEventListener('input', async () => {
+    const password = password_input.value;
+    const encrypted_message = encrypt();
+    const decrypted_message = decryptMessage();
+    if (password === correct_password) {
+        message_display.innerHTML = decrypted_message;
+    } else {
+        message_display.innerHTML = encrypted_message;
+    }
+});

@@ -1,2 +1,7 @@
-find a encryption tool
-find a way to connect the message to a number
+create an encryption message
+cretae a password that decrypt
+if the password is wrong 3 times show her a hint
+display the message
+give citlali the option to choose a number betweeb 1,2,3 if the password is correct
+make each option have a different result
+display the result
